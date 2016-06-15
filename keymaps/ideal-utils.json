@@ -1,0 +1,6 @@
+{
+  "atom-workspace": {
+    "ctrl-alt-u": "ideal-utils:wrapSQLForUpdate",
+    "ctrl-alt-a": "ideal-utils:wrapSQLDotAdd"
+  }
+}

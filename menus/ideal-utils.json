@@ -1,0 +1,34 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Wrap SQL for upadte file",
+        "command": "ideal-utils:wrapSQLForUpdate"
+      },
+      {
+        "label": "Wrap SQL with .Add",
+        "command": "ideal-utils:wrapSQLDotAdd"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "ideal-utils",
+          "submenu": [
+            {
+              "label": "Wrap SQL for upadte file",
+              "command": "ideal-utils:wrapSQLForUpdate"
+            },
+            {
+              "label": "Wrap SQL with .Add",
+              "command": "ideal-utils:wrapSQLDotAdd"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
