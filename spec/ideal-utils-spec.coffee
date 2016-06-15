@@ -47,15 +47,15 @@ describe 'IdealUtils', ->
         editor.setCursorBufferPosition([0,0])
         editor.selectDown(1)
         editor.selectToEndOfLine()
-        old_text = editor.getText()
-        console.log old_text
+        #old_text = editor.getText()
+        #console.log old_text
         atom.commands.dispatch(workspaceElement, 'ideal-utils:wrapSQLDotAdd')
         editor.selectAll()
-        expected_text = ".Add(' Test ' + \n' Multiline ');\nText"
-        console.log expected_text
-        new_text = editor.getSelectedText()
-        console.log new_text
-        expect(editor.getText()).toBe(".Add(' Test ' + \n' Multiline ');\nText")
+        #expected_text = "expected:\n.Add(' Test ' +\n' Multiline ');\nText"
+        #console.log expected_text
+        #new_text = "new\n" + editor.getSelectedText()
+        #console.log new_text
+        expect(editor.getText()).toBe(".Add(' Test ' +\n' Multiline ');\nText")
 
   describe 'when the ideal-utils:wrapSQLForUpdate event is triggered', ->
     it "wraps selected text with Add('')", ->
@@ -95,10 +95,10 @@ describe 'IdealUtils', ->
         editor.selectToEndOfLine()
         old_text = editor.getText()
         console.log old_text
-        atom.commands.dispatch(workspaceElement, 'ideal-utils:wrapSQLDotAdd')
+        atom.commands.dispatch(workspaceElement, 'ideal-utils:wrapSQLForUpdate')
         editor.selectAll()
-        expected_text = "Add(' Test ' + \n' Multiline ');\nText"
+        expected_text = "Add(' Test ' +\n' Multiline ');\nText"
         console.log expected_text
         new_text = editor.getSelectedText()
         console.log new_text
-        expect(editor.getText()).toBe("Add(' Test ' + \n' Multiline ');\nText")
+        expect(editor.getText()).toBe("Add(' Test ' +\n' Multiline ');\nText")
