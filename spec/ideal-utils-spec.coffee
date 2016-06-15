@@ -25,6 +25,16 @@ describe 'IdealUtils', ->
         new_text = editor.getSelectedText()
         expect(editor.getText()).toBe(".Add(' Test Text ');")
 
+    it "wraps selected text with .Add(''); and replaces all single quotes with double single quotes", ->
+      waitsForPromise ->
+        return activationPromise
+
+      runs ->
+        editor.insertText "Test ' Conversion"
+        editor.selectAll()
+        atom.commands.dispatch(workspaceElement, 'ideal-utils:wrapSQLDotAdd')
+        expect(editor.getText()).toBe(".Add(' Test '' Conversion ');")
+
     it "wraps selected text with .Add('') spanning multi lines with +", ->
       waitsForPromise ->
         return activationPromise
@@ -57,6 +67,25 @@ describe 'IdealUtils', ->
         #console.log new_text
         expect(editor.getText()).toBe(".Add(' Test ' +\n' Multiline ');\nText")
 
+    it "wraps selected text with .Add('') spanning multiple lines with + but does not go beyond the selection and replaces all single quotes with double single quotes", ->
+      waitsForPromise ->
+          return activationPromise
+
+      runs ->
+        editor.insertText "Test\nMultiline '\nText"
+        editor.setCursorBufferPosition([0,0])
+        editor.selectDown(1)
+        editor.selectToEndOfLine()
+        #old_text = editor.getText()
+        #console.log old_text
+        atom.commands.dispatch(workspaceElement, 'ideal-utils:wrapSQLDotAdd')
+        editor.selectAll()
+        #expected_text = "expected:\n.Add(' Test ' +\n' Multiline ');\nText"
+        #console.log expected_text
+        #new_text = "new\n" + editor.getSelectedText()
+        #console.log new_text
+        expect(editor.getText()).toBe(".Add(' Test ' +\n' Multiline '' ');\nText")
+
   describe 'when the ideal-utils:wrapSQLForUpdate event is triggered', ->
     it "wraps selected text with Add('')", ->
       waitsForPromise ->
@@ -70,6 +99,16 @@ describe 'IdealUtils', ->
         editor.selectAll()
         new_text = editor.getSelectedText()
         expect(editor.getText()).toBe("Add(' Test Text ');")
+
+    it "wraps selected text with Add(''); and replaces all single quotes with double single quotes", ->
+      waitsForPromise ->
+        return activationPromise
+
+      runs ->
+        editor.insertText "Test ' Conversion"
+        editor.selectAll()
+        atom.commands.dispatch(workspaceElement, 'ideal-utils:wrapSQLForUpdate')
+        expect(editor.getText()).toBe("Add(' Test '' Conversion ');")
 
     it "wraps selected text with Add('') spanning multi lines with +", ->
       waitsForPromise ->
@@ -102,3 +141,22 @@ describe 'IdealUtils', ->
         new_text = editor.getSelectedText()
         console.log new_text
         expect(editor.getText()).toBe("Add(' Test ' +\n' Multiline ');\nText")
+
+    it "wraps selected text with Add('') spanning multiple lines with + but does not go beyond the selection and replaces all single quotes with double single quotes", ->
+      waitsForPromise ->
+          return activationPromise
+
+      runs ->
+        editor.insertText "Test\nMultiline '\nText"
+        editor.setCursorBufferPosition([0,0])
+        editor.selectDown(1)
+        editor.selectToEndOfLine()
+        #old_text = editor.getText()
+        #console.log old_text
+        atom.commands.dispatch(workspaceElement, 'ideal-utils:wrapSQLForUpdate')
+        editor.selectAll()
+        #expected_text = "expected:\n.Add(' Test ' +\n' Multiline ');\nText"
+        #console.log expected_text
+        #new_text = "new\n" + editor.getSelectedText()
+        #console.log new_text
+        expect(editor.getText()).toBe("Add(' Test ' +\n' Multiline '' ');\nText")
